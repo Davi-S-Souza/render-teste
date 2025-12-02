@@ -18,18 +18,10 @@ services:
     # Auto-deploy on git push
     autoDeploy: true
     envVars:
-      - key: DB_HOST
+      - key: SPRING_DATASOURCE_URL
         fromDatabase:
           name: corrigeaqui-db
-          property: host
-      - key: DB_PORT
-        fromDatabase:
-          name: corrigeaqui-db
-          property: port
-      - key: DB_NAME
-        fromDatabase:
-          name: corrigeaqui-db
-          property: database
+          property: connectionString
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: corrigeaqui-db
