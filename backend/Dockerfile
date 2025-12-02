@@ -8,5 +8,7 @@ FROM eclipse-temurin:17-jdk
 
 WORKDIR /app
 COPY --from=build /app/target/corrige-aqui-0.0.1-SNAPSHOT.jar /app/app.jar
+COPY start.sh /app/start.sh
+RUN chmod +x /app/start.sh
 
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+ENTRYPOINT ["/app/start.sh"]
