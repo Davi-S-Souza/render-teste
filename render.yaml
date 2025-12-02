@@ -12,11 +12,24 @@ services:
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     plan: free
+    # Health check configuration
+    healthCheckPath: /actuator/health
+    healthCheckInterval: 30
+    # Auto-deploy on git push
+    autoDeploy: true
     envVars:
-      - key: DATABASE_URL
+      - key: DB_HOST
         fromDatabase:
           name: corrigeaqui-db
-          property: connectionString
+          property: host
+      - key: DB_PORT
+        fromDatabase:
+          name: corrigeaqui-db
+          property: port
+      - key: DB_NAME
+        fromDatabase:
+          name: corrigeaqui-db
+          property: database
       - key: SPRING_DATASOURCE_USERNAME
         fromDatabase:
           name: corrigeaqui-db
@@ -33,7 +46,8 @@ services:
         value: /app/uploads
       - key: ALLOWED_ORIGINS
         value: https://corrigeaqui-frontend.onrender.com
-    healthCheckPath: /actuator/health
+      - key: JAVA_OPTS
+        value: "-Xmx450m -Xms256m"
 
   # Frontend Next.js
   - type: web
