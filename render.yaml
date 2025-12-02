@@ -28,11 +28,14 @@ services:
       - key: JWT_SECRET
         generateValue: true
       - key: JWT_EXPIRATION
-        value: 86400000
+        value: "86400000"
       - key: UPLOAD_PATH
         value: /app/uploads
       - key: ALLOWED_ORIGINS
-        sync: false
+        fromService:
+          type: web
+          name: corrigeaqui-frontend
+          envVarKey: RENDER_EXTERNAL_URL
     healthCheckPath: /actuator/health
 
   # Frontend Next.js
