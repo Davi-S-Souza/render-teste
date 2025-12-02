@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   output: 'standalone',
+  reactStrictMode: false, // Disable strict mode to prevent double-rendering issues
   eslint: {
     // Disable ESLint during production builds
     ignoreDuringBuilds: true,

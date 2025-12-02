@@ -5,6 +5,9 @@ import { RightSidebar } from "@/components/rightSidebar"
 import { PostDetail } from "@/components/postDetail"
 import { useState, use } from "react"
 
+// Force dynamic rendering for this page
+export const dynamic = 'force-dynamic';
+
 export default function PostPage({ params }: { params: Promise<{ id: string }> }) {
   const [isRightSidebarOpen, setIsRightSidebarOpen] = useState(false)
   const { id } = use(params)
