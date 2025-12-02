@@ -1,11 +1,11 @@
-services:
+databases:
   # PostgreSQL Database
-  - type: pserv
-    name: corrigeaqui-db
-    env: docker
+  - name: corrigeaqui-db
+    databaseName: corrigeaqui
+    user: corrigeaqui
     plan: free
 
-  # Backend Spring Boot API
+services:
   - type: web
     name: corrigeaqui-backend
     env: docker
