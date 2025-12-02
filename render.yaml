@@ -32,10 +32,7 @@ services:
       - key: UPLOAD_PATH
         value: /app/uploads
       - key: ALLOWED_ORIGINS
-        fromService:
-          type: web
-          name: corrigeaqui-frontend
-          envVarKey: RENDER_EXTERNAL_URL
+        value: https://corrigeaqui-frontend.onrender.com
     healthCheckPath: /actuator/health
 
   # Frontend Next.js
@@ -47,9 +44,6 @@ services:
     plan: free
     envVars:
       - key: NEXT_PUBLIC_API_URL
-        fromService:
-          type: web
-          name: corrigeaqui-backend
-          property: host
+        value: https://corrigeaqui-backend.onrender.com
       - key: NODE_ENV
         value: production
