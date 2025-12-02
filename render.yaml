@@ -4,7 +4,6 @@ services:
     name: corrigeaqui-db
     env: docker
     plan: free
-    ipAllowList: []
 
   # Backend Spring Boot API
   - type: web
