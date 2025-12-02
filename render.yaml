@@ -1,0 +1,53 @@
+services:
+  # PostgreSQL Database
+  - type: pserv
+    name: corrigeaqui-db
+    env: docker
+    plan: free
+    ipAllowList: []
+
+  # Backend Spring Boot API
+  - type: web
+    name: corrigeaqui-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        fromDatabase:
+          name: corrigeaqui-db
+          property: connectionString
+      - key: SPRING_DATASOURCE_USERNAME
+        fromDatabase:
+          name: corrigeaqui-db
+          property: user
+      - key: SPRING_DATASOURCE_PASSWORD
+        fromDatabase:
+          name: corrigeaqui-db
+          property: password
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_EXPIRATION
+        value: 86400000
+      - key: UPLOAD_PATH
+        value: /app/uploads
+      - key: ALLOWED_ORIGINS
+        sync: false
+    healthCheckPath: /actuator/health
+
+  # Frontend Next.js
+  - type: web
+    name: corrigeaqui-frontend
+    env: docker
+    dockerfilePath: ./frontend/Dockerfile.prod
+    dockerContext: ./frontend
+    plan: free
+    envVars:
+      - key: NEXT_PUBLIC_API_URL
+        fromService:
+          type: web
+          name: corrigeaqui-backend
+          property: host
+      - key: NODE_ENV
+        value: production

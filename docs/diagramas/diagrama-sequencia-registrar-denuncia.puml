@@ -1,0 +1,70 @@
+    @startuml Diagrama de Sequencia - Registrar Denuncia
+
+    actor Usuario
+    participant "PostController" as Controller
+    participant "UserService" as UserService
+    participant "CategoryService" as CategoryService
+    participant "PostService" as PostService
+    participant "PostRepository" as Repository
+    database "PostgreSQL" as DB
+
+    Usuario -> Controller: POST /posts\n{title, content, authorId,\ncategoryId, latitude, longitude}
+    activate Controller
+
+    Controller -> Controller: validar entrada (@Valid)
+
+    Controller -> UserService: findById(authorId)
+    activate UserService
+    UserService -> DB: SELECT * FROM users\nWHERE id = ?
+    DB --> UserService: User
+    UserService --> Controller: Optional<User>
+    deactivate UserService
+
+    alt Usuário não encontrado
+        Controller --> Usuario: 404 Not Found\n"User not found"
+    else Usuário encontrado
+
+        Controller -> CategoryService: findById(categoryId)
+        activate CategoryService
+        CategoryService -> DB: SELECT * FROM categories\nWHERE id = ?
+        DB --> CategoryService: Category
+        CategoryService --> Controller: Optional<Category>
+        deactivate CategoryService
+        
+        alt Categoria não encontrada
+            Controller --> Usuario: 404 Not Found\n"Category not found"
+        else Categoria encontrada
+        
+            Controller -> Controller: criar entidade Post\ncom dados recebidos
+            
+            Controller -> PostService: create(post)
+            activate PostService
+            
+            PostService -> Repository: save(post)
+            activate Repository
+            Repository -> DB: INSERT INTO posts\n(title, content, author_id,\ncategory_id, latitude, longitude,\ncreated_at, progress)
+            DB --> Repository: Post salvo
+            Repository --> PostService: Post
+            deactivate Repository
+            
+            PostService --> Controller: Post
+            deactivate PostService
+            
+            Controller -> Controller: converter para PostDTO
+            
+            Controller --> Usuario: 201 Created\nLocation: /posts/{id}\nPostDTO
+        end
+    end
+
+    deactivate Controller
+
+    note right of Usuario
+    **UC12 - Registrar Denúncia**
+    
+    1. Usuário envia dados da denúncia
+    2. Sistema valida usuário e categoria
+    3. Sistema cria denúncia com status "Em Revisão"
+    4. Sistema retorna denúncia criada
+    end note
+
+    @enduml

@@ -1,0 +1,136 @@
+@startuml Diagrama de Classes - Corrige Aqui
+
+' Configurações de estilo
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+
+package "Models" {
+    class User {
+        -Long id
+        -String name
+        -String email
+        -String password
+        -String subtitle
+        -boolean verified
+        -String avatar
+        -LocalDateTime createdAt
+        --
+        +getId(): Long
+        +getName(): String
+        +getEmail(): String
+        +getPosts(): List<Post>
+        +getComments(): List<Comment>
+        +getLikes(): List<Like>
+        +getReports(): List<Report>
+    }
+
+    class Post {
+        -Long id
+        -String title
+        -String content
+        -String imageUrl
+        -List<String> images
+        -String progress
+        -Integer reposts
+        -Integer shares
+        -LocalDateTime createdAt
+        -Double latitude
+        -Double longitude
+        --
+        +getId(): Long
+        +getTitle(): String
+        +getContent(): String
+        +getAuthor(): User
+        +getCategory(): Category
+        +getComments(): List<Comment>
+        +getLikes(): List<Like>
+        +getReports(): List<Report>
+    }
+
+    class Category {
+        -Long id
+        -String name
+        -String color
+        --
+        +getId(): Long
+        +getName(): String
+        +getColor(): String
+        +getPosts(): List<Post>
+    }
+
+    class Comment {
+        -Long id
+        -String content
+        -LocalDateTime createdAt
+        -List<String> images
+        --
+        +getId(): Long
+        +getContent(): String
+        +getAuthor(): User
+        +getPost(): Post
+    }
+
+    class Like {
+        -Long id
+        -LocalDateTime createdAt
+        --
+        +getId(): Long
+        +getUser(): User
+        +getPost(): Post
+    }
+
+    class Report {
+        -Long id
+        -String reason
+        -ReportStatus status
+        -LocalDateTime createdAt
+        --
+        +getId(): Long
+        +getReason(): String
+        +getStatus(): ReportStatus
+        +getReporter(): User
+        +getPost(): Post
+    }
+
+    enum ReportStatus {
+        PENDING
+        APPROVED
+        REJECTED
+        --
+    }
+}
+
+' Relacionamentos
+User "1" -- "*" Post : author >
+User "1" -- "*" Comment : author >
+User "1" -- "*" Like : user >
+User "1" -- "*" Report : reporter >
+
+Post "1" -- "*" Comment : post >
+Post "1" -- "*" Like : post >
+Post "1" -- "*" Report : post >
+Post "*" -- "1" Category : category >
+
+Report "*" -- "1" ReportStatus : status >
+
+note right of User
+  Entidade principal que representa
+  os usuários do sistema.
+  Pode criar denúncias, comentários,
+  curtidas e reportes.
+end note
+
+note right of Post
+  Representa uma denúncia de
+  problema urbano. Contém
+  geolocalização, imagens e
+  status de progresso.
+end note
+
+note right of Category
+  Classifica os tipos de problemas
+  urbanos (buraco, iluminação,
+  lixo, calçada, sinalização, etc.)
+end note
+
+@enduml

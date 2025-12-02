@@ -1,0 +1,28 @@
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Dependencies
+node_modules/
+
+# Build outputs
+target/
+dist/
+build/
+out/
+
+# Uploads
+uploads/
+!uploads/default-profile.png
+*.tmp

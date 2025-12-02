@@ -1,0 +1,137 @@
+@startuml Arquitetura em Camadas - Corrige Aqui
+
+!define RECTANGLE_WIDTH 350
+skinparam packageStyle rectangle
+skinparam component {
+    BackgroundColor<<controller>> LightBlue
+    BackgroundColor<<service>> LightGreen
+    BackgroundColor<<repository>> LightYellow
+    BackgroundColor<<model>> LightPink
+    BackgroundColor<<config>> LightGray
+}
+
+package "Presentation Layer (Controllers)" <<controller>> {
+    [UserController] as UC
+    [PostController] as PC
+    [CommentController] as CC
+    [LikeController] as LC
+    [CategoryController] as CatC
+    [ReportController] as RC
+    [ImageUploadController] as IUC
+}
+
+package "Business Logic Layer (Services)" <<service>> {
+    [UserService] as US
+    [PostService] as PS
+    [CommentService] as CS
+    [LikeService] as LS
+    [CategoryService] as CatS
+    [ReportService] as RS
+}
+
+package "Data Access Layer (Repositories)" <<repository>> {
+    [UserRepository] as UR
+    [PostRepository] as PR
+    [CommentRepository] as CR
+    [LikeRepository] as LR
+    [CategoryRepository] as CatR
+    [ReportRepository] as RR
+}
+
+package "Domain Models" <<model>> {
+    [User]
+    [Post]
+    [Comment]
+    [Like]
+    [Category]
+    [Report]
+}
+
+package "Configuration Layer" <<config>> {
+    [SecurityConfig]
+    [CorsConfig]
+    [OpenApiConfig]
+    [DataInitializer]
+}
+
+database "PostgreSQL Database" {
+    folder "Tables" {
+        [users]
+        [posts]
+        [comments]
+        [likes]
+        [categories]
+        [reports]
+    }
+}
+
+' Relacionamentos
+UC --> US
+PC --> PS
+PC --> US
+PC --> CatS
+CC --> CS
+CC --> US
+CC --> PS
+LC --> LS
+LC --> US
+LC --> PS
+CatC --> CatS
+RC --> RS
+RC --> US
+RC --> PS
+
+US --> UR
+PS --> PR
+CS --> CR
+LS --> LR
+CatS --> CatR
+RS --> RR
+
+UR --> User
+PR --> Post
+CR --> Comment
+LR --> Like
+CatR --> Category
+RR --> Report
+
+UR ..> users : <<JPA>>
+PR ..> posts : <<JPA>>
+CR ..> comments : <<JPA>>
+LR ..> likes : <<JPA>>
+CatR ..> categories : <<JPA>>
+RR ..> reports : <<JPA>>
+
+note right of "Presentation Layer (Controllers)"
+  **REST Controllers**
+  - Recebem requisições HTTP
+  - Validam entrada (@Valid)
+  - Retornam DTOs
+  - Documentados com OpenAPI
+end note
+
+note right of "Business Logic Layer (Services)"
+  **Serviços de Negócio**
+  - Implementam regras de negócio
+  - Orquestram operações
+  - Transações (@Transactional)
+  - Reutilizáveis
+end note
+
+note right of "Data Access Layer (Repositories)"
+  **Repositories (JPA)**
+  - Interface com banco de dados
+  - Queries customizadas
+  - Operações CRUD
+  - Spring Data JPA
+end note
+
+note bottom of "Configuration Layer"
+  **Configurações**
+  - Segurança (Spring Security)
+  - CORS
+  - OpenAPI/Swagger
+  - Inicialização de dados
+end note
+
+@enduml

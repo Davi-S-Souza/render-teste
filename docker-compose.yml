@@ -1,0 +1,67 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: postgres_corrigeaqui
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: corrigeaqui
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_corrigeaqui
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@corrigeaqui.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+
+  backend:
+    container_name: backend_corrigeaqui
+    build:
+      context: ./backend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "0.0.0.0:8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/corrigeaqui
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+      UPLOAD_PATH: /app/uploads
+      SERVER_ADDRESS: 0.0.0.0
+    volumes:
+      - ./backend:/app
+      - ~/.m2:/root/.m2    
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      - postgres
+
+  frontend:
+    container_name: frontend_corrigeaqui
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    ports:
+      - "0.0.0.0:3000:3000"
+    environment:
+      NEXT_DISABLE_TURBOPACK: "1"   
+      WATCHPACK_POLLING: "true"     
+      WATCHPACK_POLLING_INTERVAL: "1000"
+    volumes:
+      - ./frontend:/app
+      - node_modules_frontend:/app/node_modules
+    command: sh -c "npm install && npm run dev -- -H 0.0.0.0"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
+  node_modules_frontend:

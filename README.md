@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Corrige Aqui!
 
-## Getting Started
+## Descrição do Projeto
 
-First, run the development server:
+### Propósito
+Criar um canal eficiente e acessível para que a população possa denunciar problemas de infraestrutura pública, conectando cidadãos às autoridades responsáveis pela manutenção urbana.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Objetivos Específicos
+- Permitir o registro geolocalizado de problemas de infraestrutura urbana.  
+- Categorizar as denúncias por tipo e severidade.  
+- Facilitar o monitoramento do status de resolução das denúncias.  
+- Gerar relatórios e métricas sobre a incidência de problemas por região.  
+- Promover a transparência na gestão pública de infraestrutura.  
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Justificativa
+A plataforma **“Corrige Aqui!”** busca melhorar a qualidade das vias e espaços públicos por meio do engajamento cidadão. Ao simplificar o processo de registro e visualização de problemas urbanos, fortalece a participação popular e auxilia as autoridades na identificação e priorização de intervenções necessárias.  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O sistema atende à necessidade de um canal direto entre a população e a gestão pública, incentivando a construção colaborativa de cidades mais seguras, acessíveis e bem cuidadas.  
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Benefícios Esperados
+- **Transparência**: visualização pública das denúncias registradas.  
+- **Eficiência**: agilidade na identificação e resolução de problemas.  
+- **Mensuração**: análise quantitativa de reclamações por tipo e região.  
+- **Equidade**: identificação de áreas menos assistidas pelo poder público.  
+- **Engajamento**: estímulo à participação cidadã na melhoria dos espaços urbanos.  
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Envolvidos (Stakeholders)
+O sistema é direcionado à população em geral, sem restrições de perfil, abrangendo qualquer cidadão interessado em contribuir para a melhoria da infraestrutura urbana.  
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Estrutura Organizacional
 
-## Deploy on Vercel
+### Equipe do Projeto
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+| Função              | Nome                     |
+|---------------------|--------------------------|
+| **Product Owner**   | Arliones Hoeller Jr      |
+| **Scrum Master**    | Arliones Hoeller Jr      |
+| **Desenvolvedor**   | Caio Eduardo de Aguiar   |
+| **Desenvolvedor**   | Davi Soares de Souza     |
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+**18/08/2025 – Primeira Versão**
+
+---
