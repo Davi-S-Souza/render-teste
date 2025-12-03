@@ -1,16 +1,15 @@
 const getBackendUrl = (): string => {
   if (typeof window !== 'undefined') {
-    const protocol = window.location.protocol;
-    const hostname = window.location.hostname;
-    
-    if (process.env.NEXT_PUBLIC_BACKEND_URL) {
-      return process.env.NEXT_PUBLIC_BACKEND_URL;
+    if (process.env.NEXT_PUBLIC_API_URL) {
+      return process.env.NEXT_PUBLIC_API_URL;
     }
     
+    const protocol = window.location.protocol;
+    const hostname = window.location.hostname;
     return `${protocol}//${hostname}:8080`;
   }
   
-  return process.env.NEXT_PUBLIC_BACKEND_URL || 'http://backend:8080';
+  return process.env.NEXT_PUBLIC_API_URL || 'http://backend:8080';
 };
 
 export const BACKEND_URL = getBackendUrl();

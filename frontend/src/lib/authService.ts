@@ -1,9 +1,9 @@
 import { LoginRequest, RegisterRequest, LoginResponse } from '@/@types/auth';
 import { User } from '@/@types/user';
 
-const API_BASE_URL = typeof window !== 'undefined' 
-  ? `http://${window.location.hostname}:8080`
-  : 'http://localhost:8080';
+const API_BASE_URL = typeof window !== 'undefined'
+  ? (process.env.NEXT_PUBLIC_API_URL || `${window.location.protocol}//${window.location.hostname}:8080`)
+  : (process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8080');
 
 class AuthService {
   private static TOKEN_KEY = 'auth_token';
