@@ -72,48 +72,7 @@ public class DataInitializer implements CommandLineRunner {
             Category calcadaCategory = categoryRepository.findByName("Calcada").orElseThrow();
             Category lixoCategory = categoryRepository.findByName("Lixo").orElseThrow();
 
-            Post post1 = Post.builder()
-                .title("Buraco grande na Rua Principal")
-                .content("Há um buraco grande e profundo na rua do ifsc. A situação piora a cada dia e já causou pequenos acidentes, especialmente com motos. Motoristas precisam desviar bruscamente, o que é bem arriscado. Em dias de chuva o buraco fica encoberto pela água, aumentando ainda mais o perigo.")
-                .latitude(-27.6080)
-                .longitude(-48.6304)
-                .author(user2)
-                .category(buracoCategory)
-                .images(Arrays.asList("/uploads/exemplo1.jpg"))
-                .build();
-
-            Post post2 = Post.builder()
-                .title("Iluminação pública queimada")
-                .content("Os postes de iluminação da Sebastiana Coutinho estão apagados há semanas, deixando a área bem escura à noite. Moradores relatam sensação de insegurança e dificuldade para caminhar, já que é difícil ver buracos e desníveis na calçada. A falta de luz torna o local mais perigoso para quem passa por ali.")
-                .latitude(-27.5603)
-                .longitude(-48.6277)
-                .author(user1)
-                .category(iluminacaoCategory)
-                .images(Arrays.asList("/uploads/exemplo2.jpeg"))
-                .build();
-
-            Post post3 = Post.builder()
-                .title("Vazamento de água na calçada")
-                .content("Há um vazamento constante de água na calçada da Rua Elias Merize. A água corre dia e noite, formando poças e deixando o piso escorregadio. Já vi pessoas quase caindo ali. Além do desperdício, o vazamento está piorando e pode causar danos ao pavimento.")
-                .latitude(-27.5962)
-                .longitude(-48.6269)
-                .author(user1)
-                .category(calcadaCategory)
-                .images(Arrays.asList("/uploads/exemplo3.jpg"))
-                .build();
-
-            Post post4 = Post.builder()
-                .title("Lixeira pública danificada")
-                .content("Uma lixeira pública da UFSC está quebrada há vários dias. A tampa não fecha, e o lixo acaba se espalhando com o vento e com animais que mexem nos resíduos. O local está começando a ficar com mau cheiro e precisa de manutenção para evitar sujeira e atrair insetos.")
-                .latitude(-27.6017)
-                .longitude(-48.5220)
-                .author(user2)
-                .category(lixoCategory)
-                .images(Arrays.asList("/uploads/exemplo4.jpg"))
-                .build();
-
-            postRepository.saveAll(Arrays.asList(post1, post2, post3, post4));
-            System.out.println("debug posts");
+ 
 
             Comment comment1 = Comment.builder()
                 .content("Também vi este buraco, é muito perigoso mesmo!")
