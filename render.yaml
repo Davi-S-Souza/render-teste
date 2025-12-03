@@ -4,6 +4,7 @@ databases:
     databaseName: corrigeaqui
     user: corrigeaqui
     plan: free
+    region: oregon
 
 services:
   - type: web
@@ -12,9 +13,9 @@ services:
     dockerfilePath: ./backend/Dockerfile
     dockerContext: ./backend
     plan: free
+    region: oregon
     # Health check configuration
     healthCheckPath: /actuator/health
-    healthCheckInterval: 30
     # Auto-deploy on git push
     autoDeploy: true
     envVars:
@@ -48,6 +49,7 @@ services:
     dockerfilePath: ./frontend/Dockerfile.prod
     dockerContext: ./frontend
     plan: free
+    region: oregon
     envVars:
       - key: NEXT_PUBLIC_API_URL
         value: https://corrigeaqui-backend.onrender.com
