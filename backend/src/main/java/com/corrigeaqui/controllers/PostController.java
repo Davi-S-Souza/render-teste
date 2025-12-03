@@ -19,6 +19,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -80,6 +81,7 @@ public class PostController {
         }
 
         @GetMapping
+        @Transactional(readOnly = true)
         @Operation(summary = "Listar feed de denúncias", description = "Retorna lista paginada de denúncias ordenadas por data de criação")
         @ApiResponses(value = {
                 @ApiResponse(responseCode = "200", description = "Feed retornado com sucesso",
@@ -201,6 +203,7 @@ public class PostController {
         }
 
         @GetMapping("/{id}")
+        @Transactional(readOnly = true)
         public ResponseEntity<PostDTO> getPostById(@PathVariable Long id) {
                 Post post = postService.findById(id)
                                 .orElseThrow(() -> new ResourceNotFoundException("Post not found: " + id));
@@ -276,6 +279,7 @@ public class PostController {
         }
 
                 @GetMapping("/markers")
+                @Transactional(readOnly = true)
                 @Operation(summary = "Obter marcadores do mapa", description = "Retorna todas as denúncias com coordenadas para exibição no mapa")
                 @ApiResponses(value = {
                         @ApiResponse(responseCode = "200", description = "Marcadores retornados com sucesso")
@@ -311,6 +315,7 @@ public class PostController {
         }
 
         @GetMapping("/author/{authorId}")
+        @Transactional(readOnly = true)
         public ResponseEntity<List<PostDTO>> getPostsByAuthor(@PathVariable Long authorId) {
                 List<Post> posts = postService.findByAuthorId(authorId);
                 List<PostDTO> list = posts.stream().map(p -> PostDTO.builder()
@@ -328,6 +333,7 @@ public class PostController {
         }
 
         @GetMapping("/search")
+        @Transactional(readOnly = true)
         public ResponseEntity<List<PostDTO>> searchByTitle(@RequestParam String q) {
                 List<Post> posts = postService.searchByTitle(q);
                 List<PostDTO> list = posts.stream().map(p -> PostDTO.builder()
